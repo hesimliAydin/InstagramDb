@@ -1,0 +1,215 @@
+CREATE DATABASE InstagramDb
+GO
+USE InstagramDb
+
+CREATE TABLE Users(
+[Id] INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+[Name] NVARCHAR(30) DEFAULT('No Name') NOT NULL,
+CHECK([Name]!=''),
+[Surname] NVARCHAR(30) DEFAULT('No Surname') NOT NULL,
+[Time] DATETIME DEFAULT('03-12-2003') NOT NULL
+)
+
+INSERT INTO Users([Name],[Surname],[Time])
+VALUES ('Pablo', 'Bartram', '2016-10-02'),
+('Jaimie', 'Huriche', '2016-05-18'),
+('Worthington', 'Codlin', '2010-02-13'),
+('Alana', 'Edworthy', '2005-09-02'),
+('Artemus', 'Pagan', '2019-11-26'),
+('Denney', 'Tosney', '2011-06-14'),
+('Sloane', 'Saphin', '2018-10-17'),
+('Violette', 'Velti', '2005-04-24'),
+('Ginnifer', 'Boots', '2014-09-25'),
+('Simone', 'Duffield', '2008-03-27'),
+('Linnell', 'Sidwell', '2002-04-08'),
+('Shanon', 'Reneke', '2007-03-17'),
+('Bronnie', 'Bergstrand', '2003-08-17'),
+('Dyann', 'Lush', '2017-01-13'),
+('Lindsy', 'Smittoune', '2021-05-22'),
+('Ashlie', 'McVitie', '2015-11-10'),
+('Hamish', 'Hebson', '2005-02-01'),
+('Cindelyn', 'Meany', '2021-09-20'),
+('Buckie', 'Goldstone', '2012-06-03'),
+('Marguerite', 'Wiffield', '2018-06-07'),
+('Glenine', 'Simmings', '2004-06-28'),
+('Wren', 'Coling', '2020-09-11'),
+('Royall', 'Sonley', '2002-08-04'),
+('Adan', 'Shillabeare', '2022-06-15'),
+('Sherm', 'McClurg', '2021-01-30'),
+('Alisander', 'Wrought', '2012-09-16'),
+('Reilly', 'Winscum', '2019-06-05'),
+('Faye', 'O''Codihie', '2001-03-04'),
+('Vasilis', 'Batchley', '2003-01-13'),
+('Richmond', 'Gilbanks', '2010-04-23')
+
+
+CREATE TABLE Posts(
+[Id] INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+[UserId] INT FOREIGN KEY REFERENCES Users([Id]) ON DELETE CASCADE ON UPDATE CASCADE
+)
+
+INSERT INTO Posts([UserId])
+VALUES(1),(2),(3),(4),(5),(6),
+(7),(8),(9),(10),(11),(12),
+(13),(14),(15),(16),(17),(18),
+(19),(20),(21),(22),(23),(24),
+(25),(26),(27),(28),(29),(30)
+
+
+CREATE TABLE PostRating(
+[Id] INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+[UserId] INT FOREIGN KEY REFERENCES Users([Id]),
+[PostId] INT FOREIGN KEY REFERENCES Posts([Id]) ON DELETE CASCADE,
+[Point] INT
+CHECK([Point]>=1 AND [Point]<=5)
+)
+
+INSERT INTO PostRating([Point],[PostId],[UserId])
+VALUES(1, 1, 5),
+(2, 2, 4),
+(3, 3, 3),
+(4, 4, 3),
+(5, 5, 5),
+(6, 6, 1),
+(7, 7, 1),
+(8, 8, 4),
+(9, 9, 4),
+(10, 10, 3),
+(11, 11, 4),
+(12, 12, 4),
+(13, 13, 2),
+(14, 14, 5),
+(15, 15, 5),
+(16, 16, 1),
+(17, 17, 2),
+(18, 18, 4),
+(19, 19, 3),
+(20, 20, 1),
+(21, 21, 3),
+(22, 22, 4),
+(23, 23, 5),
+(24, 24, 2),
+(25, 25, 1),
+(26, 26, 2),
+(27, 27, 1),
+(28, 28, 1),
+(29, 29, 2),
+(30, 30, 2),
+(31, 31, 3),
+(32, 32, 3),
+(33, 33, 2),
+(34, 34, 2),
+(35, 35, 3),
+(36, 36, 4)
+
+
+CREATE TABLE Comments(
+[Id] INT PRIMARY KEY IDENTITY(1,1),
+[Content] NVARCHAR(50) DEFAULT('No Content') NOT NULL,
+[DateTime] DATETIME  NOT NULL,
+CHECK([DateTime]> '03-12-2003'),
+[UserId] INT FOREIGN KEY REFERENCES Users([Id]) ON DELETE CASCADE,
+[PostId] INT FOREIGN KEY REFERENCES Posts([Id])
+)
+
+
+insert into Comments (Content, DateTime, UserId, PostId) values ('Monaco', '2022/07/30', 1, 1);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Thailand', '2022/08/03', 2, 2);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Japan', '2023/01/20', 3, 3);
+insert into Comments (Content, DateTime, UserId, PostId) values ('China', '2022/07/22', 4, 4);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Mexico', '2022/11/24', 5, 5);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Mexico', '2022/10/11', 6, 6);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Cambodia', '2022/04/17', 7, 7);
+insert into Comments (Content, DateTime, UserId, PostId) values ('China', '2022/06/19', 8, 8);
+insert into Comments (Content, DateTime, UserId, PostId) values ('United States', '2022/04/13', 9, 9);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Maldives', '2022/09/30', 10, 10);
+insert into Comments (Content, DateTime, UserId, PostId) values ('China', '2022/05/02', 11, 11);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Indonesia', '2022/03/23', 12, 12);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Uzbekistan', '2023/01/06', 13, 13);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Russia', '2022/11/17', 14, 14);
+insert into Comments (Content, DateTime, UserId, PostId) values ('China', '2022/06/19', 15, 15);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Sweden', '2022/07/01', 16, 16);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Ukraine', '2022/04/22', 17, 17);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Russia', '2022/06/10', 18, 18);
+insert into Comments (Content, DateTime, UserId, PostId) values ('United States', '2022/09/17', 19, 19);
+insert into Comments (Content, DateTime, UserId, PostId) values ('China', '2022/02/16', 20, 20);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Martinique', '2022/04/16', 21, 21);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Russia', '2022/11/19', 22, 22);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Philippines', '2022/02/19', 23, 23);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Kazakhstan', '2022/11/25', 24, 24);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Czech Republic', '2023/01/06', 25, 25);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Canada', '2022/09/06', 26, 26);
+insert into Comments (Content, DateTime, UserId, PostId) values ('United States', '2022/06/29', 27, 27);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Brazil', '2022/11/08', 28, 28);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Australia', '2022/02/24', 29, 29);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Russia', '2022/01/25', 31, 31);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Philippines', '2023/01/10', 34, 34);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Kosovo', '2022/04/30', 35, 35);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Albania', '2022/10/14', 37, 37);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Thailand', '2022/11/22', 39, 39);
+insert into Comments (Content, DateTime, UserId, PostId) values ('United States', '2022/01/29', 41, 41);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Portugal', '2022/06/25', 43, 43);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Uzbekistan', '2022/09/15', 45, 45);
+insert into Comments (Content, DateTime, UserId, PostId) values ('China', '2022/05/15', 47, 47);
+insert into Comments (Content, DateTime, UserId, PostId) values ('Czech Republic', '2022/05/06', 49, 49);
+
+CREATE TABLE CommentsRating(
+[Id] INT PRIMARY KEY IDENTITY(1,1),
+[UserId] INT FOREIGN KEY REFERENCES Users(Id),
+[CommentId] INT FOREIGN KEY REFERENCES Comments(Id) ON DELETE CASCADE,
+[Point] INT NULL,
+CHECK([Point] >= 1 AND [Point]<=5)  
+)
+
+
+
+INSERT INTO CommentsRating([UserId],[Point],[CommentId])
+VALUES(1, 1, 2),
+(2, 2, 2),
+(3, 3, 2),
+(4, 4, 2),
+(5, 5, 5),
+(6, 6, 4),
+(7, 7, 4),
+(8, 8, 3),
+(9, 9, 4),
+(10, 10, 3),
+(11, 11, 3),
+(12, 12, 2),
+(13, 13, 2),
+(14, 14, 2),
+(15, 15, 5),
+(16, 16, 4),
+(17, 17, 3),
+(18, 18, 4),
+(19, 19, 3),
+(20, 20, 5),
+(21, 21, 2),
+(22, 22, 4),
+(23, 23, 4),
+(24, 24, 2),
+(25, 25, 1),
+(26, 26, 2),
+(27, 27, 5),
+(28, 28, 4),
+(29, 29, 3),
+(30, 30, 3),
+(34, 34, 3),
+(35, 35, 3),
+(36, 36, 3),
+(40, 40, 2),
+(41, 41, 2),
+(42, 42, 2),
+(46, 46, 5),
+(47, 47, 4),
+(48, 48, 1)
+
+
+SELECT *
+FROM Users AS U,Posts AS P,PostRating AS PR,Comments AS C,CommentsRating AS CR
+WHERE P.UserId=U.Id AND PR.Id=P.Id AND CR.CommentId=C.Id AND C.UserId=U.Id
+
+
+
+DELETE Users
+WHERE Id=4
